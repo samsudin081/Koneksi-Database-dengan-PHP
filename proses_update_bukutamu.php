@@ -1,6 +1,8 @@
 <?php require_once "koneksi.php";
 
 //perintah sql
+//start session
+session_start();
 
 $id=$_POST['id'];
 $nama = $_POST['nama'];
@@ -23,16 +25,21 @@ $sql = "UPDATE tb_tamu SET nama_tamu='$nama',email_tamu='$email',pesan_tamu='$pe
 // }
 
 if ($conn->query($sql)===true) {
-	//header("location:")
-	echo "<script>
-			alert('berhasil terupdate');
-			location.assign('form_bukutamu.php');
-		</script>";
+	$_SESSION['update_status'] = 1;
+	$_SESSION['update_message'] = '<strong>Berhasil!!</strong> Data berhasil terupdate';
+	header("location: form_bukutamu.php");
+	//echo "<script>
+			//alert('berhasil terupdate');
+			//location.assign('form_bukutamu.php');
+		//</script>";
 }else{
-	echo "<script>
-			alert('gagal terupdate');
-			location.assign('form_bukutamu.php');
-		</script>";
+	$_SESSION['update_status'] = 0;
+	$_SESSION['update_message'] = '<strong>Berhasil!!</strong> Data berhasil terupdate';
+	header("location: form_bukutamu.php");
+	//echo "<script>
+			//alert('gagal terupdate');
+			//location.assign('form_bukutamu.php');
+		//</script>";
 }
 
 
